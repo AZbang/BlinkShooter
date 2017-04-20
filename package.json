@@ -1,0 +1,23 @@
+{
+  "name": "shooter-blink",
+  "version": "1.0.0",
+  "description": "Game",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "game"
+  ],
+  "devDependencies": {
+    "coffeeify": "~0.5.2",
+    "gulp": "~3.9.1",
+    "gulp-browserify": "https://github.com/deepak1556/gulp-browserify/tarball/master",
+    "gulp-concat": "~2.1.7",
+    "gulp-connect": "^5.0.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.1.0"
+  },
+  "author": "azbang",
+  "license": "UNLICENSED"
+}
