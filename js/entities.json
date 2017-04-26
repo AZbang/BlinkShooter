@@ -5,7 +5,7 @@
 		"speed": 100,
 
 		"head": 1,
-		"body": 1,
-		"weapon": 1
+		"body": 2,
+		"weapon": 5
 	}
 }
