@@ -1,0 +1,11 @@
+{
+	"player": {
+		"hp": 10,
+		"jump": 3,
+		"speed": 100,
+
+		"head": 1,
+		"body": 1,
+		"weapon": 1
+	}
+}

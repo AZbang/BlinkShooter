@@ -16,6 +16,7 @@ var errorMessage = () => {
 
 gulp.task('coffee', () => {
 	return gulp.src('./coffee/index.coffee', {read: false})
+			.pipe(errorMessage())
 			.pipe(browserify({ 
 				transform: ['coffeeify'], 
 				extensions: ['.coffee'] 
@@ -37,7 +38,7 @@ gulp.task('server', () => {
 
 // Watch files
 gulp.task('watch', () => {
-	gulp.watch('./coffee/*.*', ['coffee']);
+	gulp.watch('./coffee/**/*.*', ['coffee']);
 });
 
 // Tasks
