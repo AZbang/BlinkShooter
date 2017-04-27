@@ -4,8 +4,8 @@
 		"jump": 3,
 		"speed": 100,
 
-		"head": 1,
-		"body": 2,
+		"head": 5,
+		"body": 3,
 		"weapon": 5
 	}
 }

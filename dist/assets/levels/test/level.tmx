@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="24">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="41">
  <tileset firstgid="1" name="tilemap" tilewidth="16" tileheight="16" tilecount="324">
   <image source="tilemap.png" trans="aaff7f" width="288" height="288"/>
  </tileset>
@@ -108,64 +108,99 @@
 </data>
  </layer>
  <objectgroup name="collisions">
-  <object id="1" x="810.667" y="639.333" width="44.8333" height="102">
+  <object id="1" x="811.758" y="604" width="39.1512" height="139.878">
    <properties>
     <property name="dead_fall" value="true"/>
    </properties>
   </object>
-  <object id="2" x="1209.33" y="734.667" width="128.667" height="347.667">
+  <object id="2" x="1209.33" y="734.667" width="116.67" height="336">
    <properties>
     <property name="dead_fall" value="true"/>
    </properties>
   </object>
-  <object id="4" x="799" y="726" width="457.5" height="20">
+  <object id="4" x="799" y="733.333" width="457.5" height="45.3333">
    <properties>
     <property name="dead_fall" value="true"/>
    </properties>
   </object>
-  <object id="5" x="1093" y="641.75" width="84.5" height="94.25">
+  <object id="5" x="1102.91" y="622.667" width="64.4242" height="113.333">
    <properties>
     <property name="dead_fall" value="true"/>
    </properties>
   </object>
-  <object id="7" x="932" y="642.25" width="86.5" height="89.75">
+  <object id="7" x="941.636" y="616" width="67.2727" height="126">
    <properties>
     <property name="dead_fall" value="true"/>
    </properties>
   </object>
-  <object id="8" x="801" y="638" width="540" height="12">
+  <object id="8" x="798.667" y="591.333" width="542.333" height="47.3333">
    <properties>
     <property name="dead_fall" value="true"/>
    </properties>
   </object>
-  <object id="9" x="1253" y="648" width="171" height="145.667">
+  <object id="9" x="1264.67" y="614.667" width="159.333" height="170.667">
    <properties>
     <property name="dead_fall" value="true"/>
    </properties>
   </object>
-  <object id="10" x="1327" y="867" width="132" height="71">
+  <object id="10" x="1311.67" y="880.667" width="132" height="45.3333">
    <properties>
     <property name="dead_fall" value="true"/>
    </properties>
   </object>
-  <object id="14" x="1413" y="739" width="62" height="343">
+  <object id="14" x="1422.67" y="739" width="52.3333" height="343">
    <properties>
     <property name="dead_fall" value="true"/>
    </properties>
   </object>
-  <object id="19" x="1318" y="1014.5" width="158" height="145.5">
+  <object id="19" x="1327.33" y="1025.33" width="148.667" height="155.333">
    <properties>
     <property name="dead_fall" value="true"/>
    </properties>
   </object>
-  <object id="20" x="1126" y="1035" width="114.667" height="142">
+  <object id="20" x="1126" y="1035" width="103.333" height="142">
    <properties>
     <property name="dead_fall" value="true"/>
    </properties>
   </object>
-  <object id="22" x="1228" y="1157" width="149" height="94">
+  <object id="22" x="1228" y="1169.33" width="149" height="81.6667">
    <properties>
     <property name="dead_fall" value="true"/>
+   </properties>
+  </object>
+  <object id="24" x="610.667" y="918" width="24.6667" height="22.6667">
+   <properties>
+    <property name="spawn_player" value="true"/>
+   </properties>
+  </object>
+  <object id="35" x="1262" y="1105" width="34" height="28">
+   <properties>
+    <property name="spaw_mob" value="true"/>
+   </properties>
+  </object>
+  <object id="36" x="877" y="673" width="34" height="28">
+   <properties>
+    <property name="spaw_mob" value="true"/>
+   </properties>
+  </object>
+  <object id="37" x="1040" y="674" width="34" height="28">
+   <properties>
+    <property name="spaw_mob" value="true"/>
+   </properties>
+  </object>
+  <object id="38" x="1196" y="674" width="34" height="28">
+   <properties>
+    <property name="spaw_mob" value="true"/>
+   </properties>
+  </object>
+  <object id="39" x="677" y="674" width="34" height="28">
+   <properties>
+    <property name="spaw_mob" value="true"/>
+   </properties>
+  </object>
+  <object id="40" x="736" y="673" width="34" height="28">
+   <properties>
+    <property name="spaw_mob" value="true"/>
    </properties>
   </object>
  </objectgroup>

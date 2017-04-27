@@ -1,5 +1,4 @@
 const Level = require('./states/Level.js');
-const Player = require('./Player.js');
 
 class Boot {
 	constructor(game) {
@@ -7,7 +6,7 @@ class Boot {
 	}
 
 	preload() {
-		this.load.tilemap('map', '../assets/levels/test/map.csv', null, Phaser.Tilemap.CSV);
+		this.load.tilemap('map', '../assets/levels/test/level.json', null, Phaser.Tilemap.TILED_JSON);
 		this.load.image('tilemap', '../assets/levels/tilemap.png');
 		this.load.image('bg', '../assets/bg.png');
 		this.load.image('person1', '../assets/_/characters/example.png');
@@ -33,12 +32,10 @@ class Boot {
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		this.level = new Level(this);
-		console.log(this)
-		this.player = new Player(this, this.world.centerX, this.world.centerY);
 	}
 
 	update() {
-		this.player.update();
+		this.level.update();
 	}
 }
 

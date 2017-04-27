@@ -14,6 +14,7 @@ class Entity {
 		this.jumping = this._entity.jump != null ? this._entity.jump : 2;
 		this.speed = this._entity.speed != null ? this._entity.speed : 100;
 		this.isJumping = false;
+		this.isDead = false;
 
 		this.headId = this._entity.head != null ? this._entity.head : 0;
 		this.bodyId = this._entity.body != null ? this._entity.body : 0;
@@ -78,6 +79,14 @@ class Entity {
 			}, this);
 					
 		}, this);
+	}
+
+	fallDead() {
+		this.isDead = true;
+		this.game.add.tween(this.sprite.scale).to({
+			x: 0, 
+			y: 0
+		}, 300, Phaser.Easing.Quadratic.In, true);
 	}
 }
 

@@ -9,19 +9,24 @@ class Player extends Entity {
 
 		this.sprite.body.drag.set(150);
 		this.sprite.body.maxVelocity.set(100);
+		this.sprite.syncBounds = true;
 
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 		this.jumpButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+		this.fireButton = this.game.input.keyboard.addKey(Phaser.Keyboard.Z);
 	}
 
 	update() {
+		if(this.isDead) return;
+
+		this.game.physics.arcade.collide(this.sprite, this.game.level.layerMap);
+
 		if(this.isJumping)
 			this.weapon.trackSprite(this.sprite, 16*this.sprite.scale.x, 4*this.sprite.scale.y, true);
 
-		if(this.cursors.up.isDown) {
-			this.fire();
+		if(this.cursors.up.isDown)
 			this.game.physics.arcade.accelerationFromRotation(this.sprite.rotation, 300, this.sprite.body.acceleration);
-		}
+
 		else this.sprite.body.acceleration.set(0);
 
 		if(this.cursors.left.isDown)
@@ -32,8 +37,24 @@ class Player extends Entity {
 
 		else this.sprite.body.angularVelocity = 0;
 
+		if(this.fireButton.isDown)
+			this.fire();
+
 		if(this.jumpButton.isDown && !this.isJumping) {
 			this.jump(this.jumping);
+		}
+
+		if(!this.isJumping) {
+			for(let i = 0; i < this.game.level.deadRects.length; i++) {
+				let rect = this.game.level.deadRects[i];
+
+				let pl = new Phaser.Rectangle(this.sprite.body.x, this.sprite.body.y, this.sprite.body.width, this.sprite.body.height);
+				if(Phaser.Rectangle.intersects(rect, pl)) {
+					this.sprite.body.acceleration.set(0);
+					this.fallDead();
+					return;
+				}
+			}
 		}
 	}
 }
