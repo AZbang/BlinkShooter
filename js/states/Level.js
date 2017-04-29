@@ -1,4 +1,5 @@
 const Player = require('../Player.js');
+const Enemy = require('../Enemy');
 
 class Level {
 	constructor(game) {
@@ -17,21 +18,33 @@ class Level {
 		this.map.setCollisionBetween(90, 97);
 
 		this.deadRects = [];
-		this.map.objects.collisions.forEach((rect) => {
-			if(rect.properties.dead_fall == 'true') {
-				let rectangle = new Phaser.Rectangle(rect.x, rect.y, rect.width, rect.height)
-				this.deadRects.push(rectangle);
-			}
-
-			else if(rect.properties.spawn_player == 'true') {
-				this.player = new Player(this.game, rect.x+rect.width/2, rect.y+rect.height/2);
-			}
+		this.map.objects.deadArea.forEach((rect) => {
+			let rectangle = new Phaser.Rectangle(rect.x, rect.y, rect.width, rect.height)
+			this.deadRects.push(rectangle);
 		});
 
+		this.enemies = [];
+		this.map.objects.spawner.forEach((spawn) => {
+			let enemy = new Enemy(this.game, spawn.x+spawn.width/2, spawn.y+spawn.height/2, spawn.properties.type);
+			this.enemies.push(enemy);
+		});
+
+		let posPlayer = this.map.objects.player[0];
+		this.player = new Player(this.game, posPlayer.x+posPlayer.width/2, posPlayer.y+posPlayer.height/2);
+		
+		let arr = [];
+		for(let i = 1; i < 300; i++) {
+			arr.push(i);
+		}
+		this.game.pathfinder.setGrid(this.map.layers[0].data, arr);
 	}
 
 	update() {
 		this.player.update();
+
+		for(let i = 0; i < this.enemies.length; i++) {
+			this.enemies[i].update();
+		}
 	}
 }
 

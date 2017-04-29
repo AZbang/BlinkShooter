@@ -22,5 +22,8 @@
     "gulp-sourcemaps": "^2.6.0"
   },
   "author": "azbang",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "easystarjs": "^0.4.1"
+  }
 }

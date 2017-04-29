@@ -20,6 +20,9 @@ class Boot {
 	}
 
 	create() {
+		this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
+
+
 		this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 		this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 		this.game.scale.pageAlignHorizontally = true;

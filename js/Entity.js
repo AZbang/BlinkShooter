@@ -42,6 +42,11 @@ class Entity {
 		this.weapon.bulletSpeed = 400;
 		this.weapon.fireRate = 50;
 		this.weapon.trackSprite(this.sprite, 16, 4, true);
+		
+		this.game.physics.arcade.enable(this.sprite);
+		this.sprite.body.drag.set(150);
+		this.sprite.body.maxVelocity.set(100);
+		this.sprite.syncBounds = true;
 	}
 
 	fire() {
@@ -52,7 +57,7 @@ class Entity {
 			this.game.physics.arcade.accelerationFromRotation(this.sprite.rotation, 300, this.sprite.body.acceleration);
 			bullet.smoothed = false;
 			bullet.scale.setTo(this.sprite.scale.x/2, this.sprite.scale.y/2);
-			return (bullet.body.updateBounds)();
+			bullet.body.updateBounds();
 		}
 	}
 
