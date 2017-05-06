@@ -22,7 +22,6 @@ gulp.task('js', () => {
 		.pipe(browserify({
 			transform: ['babelify']
 		}))
-		.pipe(concat('index.js'))
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest('./dist'))
 		.pipe(connect.reload());

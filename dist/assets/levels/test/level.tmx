@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="62">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="91">
  <tileset firstgid="1" name="tilemap" tilewidth="16" tileheight="16" tilecount="324">
   <image source="tilemap.png" trans="aaff7f" width="288" height="288"/>
  </tileset>
@@ -107,7 +107,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#ff3318" name="deadArea">
+ <objectgroup color="#ff3318" name="deadArea" visible="0">
   <object id="1" x="811.758" y="604" width="39.1512" height="139.878"/>
   <object id="2" x="1201.33" y="617.667" width="26.67" height="428.333"/>
   <object id="4" x="799" y="733.333" width="429" height="45.3333"/>
@@ -124,7 +124,7 @@
   <object id="59" x="1325" y="1064.33" width="4.33333" height="28.6667"/>
   <object id="61" x="1320.33" y="939.667" width="117.333" height="56"/>
  </objectgroup>
- <objectgroup color="#0055ff" name="spawner">
+ <objectgroup color="#0055ff" name="spawner" visible="0">
   <object id="41" x="1007.67" y="672.667" width="34" height="28">
    <properties>
     <property name="type" value="robot3"/>
@@ -155,8 +155,23 @@
     <property name="type" value="robot"/>
    </properties>
   </object>
+  <object id="77" x="1276" y="683.333" width="20" height="18.6667"/>
+  <object id="78" x="1396.67" y="746.667" width="19.3333" height="19.3333"/>
  </objectgroup>
- <objectgroup color="#55aa00" name="bonuses">
+ <objectgroup name="moving">
+  <object id="63" x="779.5" y="680.5" width="9.5" height="10.5"/>
+  <object id="64" x="619.5" y="683" width="8.5" height="8"/>
+  <object id="65" x="618.5" y="881" width="8.5" height="9"/>
+  <object id="79" x="1273.33" y="746" width="13.3333" height="12"/>
+  <object id="80" x="1400.67" y="684" width="12.6667" height="11.3333"/>
+  <object id="81" x="1272.67" y="680" width="14" height="12"/>
+  <object id="84" x="1406" y="750" width="10" height="10.6667"/>
+  <object id="86" x="1337.33" y="713.333" width="15.3333" height="14.6667"/>
+  <object id="87" x="617.333" y="749.333" width="11.3333" height="10"/>
+  <object id="88" x="619.333" y="816.667" width="10" height="11.3333"/>
+  <object id="89" x="697.333" y="682.667" width="10" height="9.33333"/>
+ </objectgroup>
+ <objectgroup color="#55aa00" name="bonuses" visible="0">
   <object id="48" x="1357" y="1020" width="38" height="38">
    <properties>
     <property name="type" value="bullets"/>
@@ -173,7 +188,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ffaa00" name="player">
+ <objectgroup color="#ffaa00" name="player" visible="0">
   <object id="55" x="609.667" y="914.667" width="24.6667" height="22.6667">
    <properties>
     <property name="spawn_player" value="true"/>
