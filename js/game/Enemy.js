@@ -4,6 +4,7 @@ class Enemy extends Entity {
 	constructor(level, x, y, type='robot') {
 		super(level, x, y, type);
 
+		// coping flags and deleting flags which is not in walking distance
 		this.flags = this.level.patruleFlags.slice(0);
 		this.flags.forEach((flag, i) => {
 			let layer = this.level.layerMap;
@@ -20,41 +21,21 @@ class Enemy extends Entity {
 			this.level.pathfinder.preparePathCalculation([x, y], [x2, y2]);
 			this.level.pathfinder.calculatePath();
 		});
+		// patrule mode on!
 		this.isPatruleMode = true;
 		this.findPathToFlag();
 	}
 
 	update() {
-		if(this.isDead) return;
-
-		// Collisions
-		this.level.physics.arcade.collide(this.weapon.bullets, this.level.layerMap, (bullet) => {
-			bullet.kill();
-		}, null, this);
-		this.level.physics.arcade.collide(this.weapon.bullets, this.level.player.sprite, (player, bullet) => {
-			if(!player.class.isJumping) {
-				player.class.dead();
-				this.level.state.restart();
-				bullet.kill();
-			}
-		}, null, this);
-		this.level.physics.arcade.collide(this.sprite, this.level.layerMap);
-		for(let i = 0; i < this.level.deadRects.length; i++) {
-			let rect = this.level.deadRects[i];
-
-			let pl = new Phaser.Rectangle(this.sprite.body.x, this.sprite.body.y, this.sprite.body.width, this.sprite.body.height);
-			if(Phaser.Rectangle.intersects(rect, pl)) {
-				this.sprite.body.acceleration.set(0);
-				this.fallDead();
-				return;
-			}
-		}
-
-		if(this.level.physics.arcade.distanceBetween(this.sprite, this.level.player.sprite) < this.radiusVisibility) {
+		// if enemy saw player, then he starting attack him
+		let distance = this.level.physics.arcade.distanceBetween(this.sprite, this.level.player.sprite);
+		if(distance < this.radiusVisibility) {
+			let angle = this.level.physics.arcade.angleToXY(this.sprite, this.level.player.sprite.x,  this.level.player.sprite.y);
 			this.level.add.tween(this.sprite)
-				.to({rotation: this.level.physics.arcade.angleToXY(this.sprite, this.level.player.sprite.x,  this.level.player.sprite.y)}, this.speed/2)
+				.to({rotation: angle}, this.speed/2)
 				.start();
-			this.fire();
+			this.weapon.fire();
+			// patrule mode off
 			this.isPatruleMode = false;
 		}
 	}
@@ -100,6 +81,7 @@ class Enemy extends Entity {
 	}
 
 	findСlosestFlag() {
+		// using not used flags (countRepeat) and finded closest flag
 		let min = Infinity;
 		let resultFlag;
 		this.flags.forEach((flag) => {

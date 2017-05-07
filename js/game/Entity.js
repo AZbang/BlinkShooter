@@ -1,3 +1,4 @@
+const Weapon = require('./Weapon.js');
 const entities = require('./entities.json');
 
 class Entity {
@@ -19,7 +20,8 @@ class Entity {
 
 		this.headId = this._entity.head != null ? this._entity.head : 0;
 		this.bodyId = this._entity.body != null ? this._entity.body : 0;
-		this.weaponId = this._entity.weapon != null ? this._entity.weapon : 0;
+		this.attachToBodyId = this._entity.attachToBody != null ? this._entity.attachToBody : 0;
+		this.weaponId = this._entity.weapon != null ? this._entity.weapon : 'blaster';
 
 		this._createPhaserObjects();
 	}
@@ -34,16 +36,11 @@ class Entity {
 		this.head.smoothed = false;
 		this.sprite.addChild(this.head);
 
-		this.attachToBody = this.level.make.sprite(3.5, -4, 'attachToBody', this.weaponId);
+		this.attachToBody = this.level.make.sprite(3.5, -4, 'attachToBody', this.attachToBodyId);
 		this.attachToBody.smoothed = false;
 		this.sprite.addChild(this.attachToBody);	
 
-		this.weapon = this.level.add.weapon(10, 'bullets');
-		this.weapon.setBulletFrames(this.weaponId, this.weaponId, true);
-		this.weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
-		this.weapon.bulletSpeed = 400;
-		this.weapon.fireRate = 100;
-		this.weapon.trackSprite(this.sprite, 16, 4, true);
+		this.weapon = new Weapon(this, this.weaponId);
 		
 		this.level.physics.arcade.enable(this.sprite);
 		this.sprite.body.drag.set(150);
@@ -57,19 +54,49 @@ class Entity {
 		this.tweenBreathe.start();
 	}
 
-	fire() {
-		let bullet = this.weapon.fire();
+	_update() {
+		if(this.isDead) return;
 
-		if(bullet) {
-			this.sprite.body.angularVelocity = -400;
-			this.level.physics.arcade.accelerationFromRotation(this.sprite.rotation, 300, this.sprite.body.acceleration);
-			bullet.smoothed = false;
-			bullet.scale.setTo(this.sprite.scale.x/2, this.sprite.scale.y/2);
-			bullet.body.updateBounds();
+		// update weapon collisions
+		this.weapon.update();
+
+		// collision person with bullets
+		let bullets = this.level.bullets.children;
+		for(let i = 0; i < bullets.length; i++) {
+			if(this.constructor.name === bullets[i].typeOwner) continue;
+
+			this.level.physics.arcade.overlap(bullets[i], this.sprite, (person, bullet) => {
+				if(!this.isJumping && bullet.scale.x < 1) {
+					bullet.kill();
+					this.dead();
+				}
+			});
 		}
+		// colliding with solid tiles
+		this.level.physics.arcade.collide(this.sprite, this.level.layerMap);
+
+		// colliding with empty map (dead)
+		if(!this.isJumping) {
+			for(let i = 0; i < this.level.deadRects.length; i++) {
+				let rect = this.level.deadRects[i];
+
+				let pl = new Phaser.Rectangle(this.sprite.body.x, this.sprite.body.y, this.sprite.body.width, this.sprite.body.height);
+				if(Phaser.Rectangle.intersects(rect, pl)) {
+					this.sprite.body.acceleration.set(0);
+					this.fallDead();
+					return;
+				}
+			}
+		}
+
+		// updating tracking weapon with sprite during jumping
+		if(this.isJumping) this.weapon.updateTrack();
+
+		// extends update!
+		this.update && this.update();
 	}
 
-	jump(power) {
+	jump(power=this.jumping) {
 		this.isJumping = true;
 		this.tweenBreathe.pause();
 
@@ -80,13 +107,14 @@ class Entity {
 		this.tweenJump.onComplete.add(() => {
 			this.isJumping = false;
 			this.tweenBreathe.resume();
-			this.weapon.trackSprite(this.sprite, 16*this.sprite.scale.x, 4*this.sprite.scale.y, true);
+			this.weapon.updateTrack();
 		}, this);
 	}
 
 	dead() {
 		this.sprite.kill();
 		this.isDead = true;
+		this.onDead && this.onDead();
 	}
 
 	fallDead() {
@@ -96,7 +124,7 @@ class Entity {
 			y: 0
 		}, 300, Phaser.Easing.Quadratic.In, true);
 		dead.onComplete.add(() => {
-			this.level.state.restart();
+			this.onDead && this.onDead();
 		});
 	}
 }

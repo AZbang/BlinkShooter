@@ -6,7 +6,8 @@
 
 		"head": 5,
 		"body": 3,
-		"weapon": 5
+		"attachToBody": 1,
+		"weapon": "blaster"
 	},
 	"robot": {
 		"hp": 10,
@@ -16,7 +17,8 @@
 
 		"head": 7,
 		"body": 1,
-		"weapon": 8
+		"attachToBody": 1,
+		"weapon": "blaster"
 	},
 	"robot2": {
 		"hp": 10,
@@ -26,7 +28,8 @@
 
 		"head": 10,
 		"body": 3,
-		"weapon": 2
+		"attachToBody": 1,
+		"weapon": "blaster"
 	},
 	"robot3": {
 		"hp": 10,
@@ -36,6 +39,7 @@
 
 		"head": 13,
 		"body": 3,
-		"weapon": 5
+		"attachToBody": 1,
+		"weapon": "blaster"
 	}
 }

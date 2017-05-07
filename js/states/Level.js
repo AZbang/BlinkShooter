@@ -41,6 +41,9 @@ class Level {
 		this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
 		this.pathfinder.setGrid(this.map.layers[0].data, arr);
 
+		// group for bullets
+		this.bullets = this.add.group();
+
 		// Player
 		let posPlayer = this.map.objects.player[0];
 		this.player = new Player(this, posPlayer.x+posPlayer.width/2, posPlayer.y+posPlayer.height/2);
@@ -53,6 +56,7 @@ class Level {
 		});
 	}
 
+	// utils method for inverted impassable tiles to passable (SHIT CODE!)
 	_createWalkableArr(all, ranges) {
 		let result = [];
 
@@ -71,10 +75,10 @@ class Level {
 	}
 
 	update() {
-		this.player.update();
+		this.player._update();
 
 		for(let i = 0; i < this.enemies.children.length; i++) {
-			this.enemies.children[i].class.update();
+			this.enemies.children[i].class._update();
 		}
 	}
 }
