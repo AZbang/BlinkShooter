@@ -3,11 +3,9 @@ class Preload {
 
 	}
 	preload() {
-		this.stage.backgroundColor = '#FFA66A';
-
 		this.load.image('bg', '../assets/bg.png');
 		this.load.image('tilemap', '../assets/levels/tilemap.png');
-		this.load.image('font', '../assets/font.png');
+		this.load.bitmapFont('font', '../assets/font.png', '../assets/font.xml');
 
 		this.load.atlas('heads', 'assets/atlases/heads.png', 'assets/atlases/heads.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		this.load.atlas('bodies', 'assets/atlases/bodies.png', 'assets/atlases/bodies.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
@@ -19,8 +17,6 @@ class Preload {
 
 	create() {
 		this.state.start('Menu');
-		// Debug!!!
-		// this.state.start('Level');
 	}
 }
 

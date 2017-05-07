@@ -3,23 +3,48 @@ class Menu {
 
 	}
 	create() {
-		this.stage.backgroundColor = '#6BADFF';
+		this.bg = this.game.add.tileSprite(0, 0, this.world.width, this.world.height, 'bg');
 
-		// this.label = this.add.retroFont('font', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
-		// this.label.text = 'menu';
+		this.label = this.add.bitmapText(this.world.centerX, 50, 'font', 'MENU', 50);
+		this.label.anchor.set(0.5);
+		this.label.smoothed = false;
 
-		// this.labelBtnStart = this.add.retroFont('font', 31, 25, Phaser.RetroFont.TEXT_SET6, 10, 1, 1);
-		// this.labelBtnStart.text = 'START';
-		// this.labelBtnStart.x = this.world.centerX;
-		// this.labelBtnStart.y = this.world.centerY;
-		this.btnStart = this.add.button(this.world.centerX, this.world.centerY-20, 'null', this.goLevelManager, this);
-		this.btnStart.width = 200;
-		this.btnStart.height = 80;
-		this.btnStart.anchor.set(0.5, 0.5);
+		this.btnStart = this.add.bitmapText(this.world.centerX, this.world.centerY-20, 'font', 'START', 30);
+		this.btnStart.anchor.set(0.5);
+		this.btnStart.inputEnabled = true;
+		this.btnStart.events.onInputDown.add(() => {
+			this.add.tween(this.btnStart.scale).to({x: 1.3, y: 1.3}, 300).start();
+		});
+		this.btnStart.events.onInputUp.add(() => {
+			this.state.start('LevelManager');
+		});
+		this.btnStart.events.onInputOver.add(() => {
+			this.add.tween(this.btnStart.scale).to({x: 1.3, y: 1.3}, 300).start();
+		});
+		this.btnStart.events.onInputOut.add(() => {
+			this.add.tween(this.btnStart.scale).to({x: 1, y: 1}, 300).start();
+		});
+
+
+		this.btnSettings = this.add.bitmapText(this.world.centerX, this.world.centerY+25, 'font', 'SETTINGS', 30);
+		this.btnSettings.anchor.set(0.5);
+		this.btnSettings.inputEnabled = true;
+		this.btnSettings.events.onInputDown.add(() => {
+			this.add.tween(this.btnSettings.scale).to({x: 1.3, y: 1.3}, 300).start();
+		});
+		this.btnSettings.events.onInputUp.add(() => {
+			this.state.start('Settings');
+		});
+		this.btnSettings.events.onInputOver.add(() => {
+			this.add.tween(this.btnSettings.scale).to({x: 1.3, y: 1.3}, 300).start();
+		});
+		this.btnSettings.events.onInputOut.add(() => {
+			this.add.tween(this.btnSettings.scale).to({x: 1, y: 1}, 300).start();
+		});
 	}
-
-	goLevelManager() {
-		this.state.start('LevelManager');
+	update() {
+		this.bg.tilePosition.x += 1;
+		this.bg.tilePosition.y += 1;
 	}
 }
 

@@ -13,7 +13,7 @@ class Level {
 		this.map = this.game.add.tilemap('map', 16, 16);
 		this.map.addTilesetImage('tilemap');
 
-		this.game.add.tileSprite(0, 0, 10000, 10000, 'bg');
+		this.bg = this.game.add.tileSprite(0, 0, 10000, 10000, 'bg');
 		this.world.setBounds(0, 0, 10000, 10000);
 
 		this.layerMap = this.map.createLayer('map');
@@ -80,6 +80,9 @@ class Level {
 		for(let i = 0; i < this.enemies.children.length; i++) {
 			this.enemies.children[i].class._update();
 		}
+
+		this.bg.tilePosition.x += 1;
+		this.bg.tilePosition.y += 1;
 	}
 }
 
