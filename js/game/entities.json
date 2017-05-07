@@ -12,6 +12,7 @@
 		"hp": 10,
 		"jump": 3,
 		"speed": 100,
+		"radiusVisibility": 150,
 
 		"head": 7,
 		"body": 1,
@@ -21,6 +22,7 @@
 		"hp": 10,
 		"jump": 3,
 		"speed": 100,
+		"radiusVisibility": 150,
 
 		"head": 10,
 		"body": 3,
@@ -30,6 +32,7 @@
 		"hp": 10,
 		"jump": 3,
 		"speed": 100,
+		"radiusVisibility": 150,
 
 		"head": 13,
 		"body": 3,

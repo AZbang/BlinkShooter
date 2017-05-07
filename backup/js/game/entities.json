@@ -1,0 +1,38 @@
+{
+	"player": {
+		"hp": 10,
+		"jump": 3,
+		"speed": 100,
+
+		"head": 5,
+		"body": 3,
+		"weapon": 5
+	},
+	"robot": {
+		"hp": 10,
+		"jump": 3,
+		"speed": 100,
+
+		"head": 7,
+		"body": 1,
+		"weapon": 8
+	},
+	"robot2": {
+		"hp": 10,
+		"jump": 3,
+		"speed": 100,
+
+		"head": 10,
+		"body": 3,
+		"weapon": 2
+	},
+	"robot3": {
+		"hp": 10,
+		"jump": 3,
+		"speed": 100,
+
+		"head": 13,
+		"body": 3,
+		"weapon": 5
+	}
+}

@@ -18,8 +18,10 @@ class Player extends Entity {
 			bullet.kill();
 		}, null, this);
 		this.level.physics.arcade.collide(this.weapon.bullets, this.level.enemies, (bullet, enemy) => {
-			bullet.kill();
-			enemy.class.dead();
+			if(!enemy.class.isJumping) {
+				bullet.kill();
+				enemy.class.dead();
+			}
 		}, null, this);
 
 		this.level.physics.arcade.collide(this.sprite, this.level.layerMap);
@@ -58,17 +60,6 @@ class Player extends Entity {
 		if(this.jumpButton.isDown && !this.isJumping) {
 			this.jump(this.jumping);
 		}
-	}
-
-	fallDead() {
-		this.isDead = true;
-		let dead = this.level.add.tween(this.sprite.scale).to({
-			x: 0, 
-			y: 0
-		}, 300, Phaser.Easing.Quadratic.In, true);
-		dead.onComplete.add(() => {
-			this.level.state.restart();
-		});
 	}
 }
 			

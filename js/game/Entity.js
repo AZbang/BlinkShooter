@@ -13,6 +13,7 @@ class Entity {
 		this.hp = this._entity.hp != null ? this._entity.hp : 10;
 		this.jumping = this._entity.jump != null ? this._entity.jump : 2;
 		this.speed = this._entity.speed != null ? this._entity.speed : 100;
+		this.radiusVisibility = this._entity.radiusVisibility != null ? this._entity.radiusVisibility : 100;
 		this.isJumping = false;
 		this.isDead = false;
 
@@ -86,6 +87,17 @@ class Entity {
 	dead() {
 		this.sprite.kill();
 		this.isDead = true;
+	}
+
+	fallDead() {
+		this.isDead = true;
+		let dead = this.level.add.tween(this.sprite.scale).to({
+			x: 0, 
+			y: 0
+		}, 300, Phaser.Easing.Quadratic.In, true);
+		dead.onComplete.add(() => {
+			this.level.state.restart();
+		});
 	}
 }
 

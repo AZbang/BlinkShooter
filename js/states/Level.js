@@ -36,21 +36,21 @@ class Level {
 			this.patruleFlags.push(rectangle);
 		});
 
+		// PathFinder
+		let arr = this._createWalkableArr(300, [[72, 79], [90, 97]]);
+		this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
+		this.pathfinder.setGrid(this.map.layers[0].data, arr);
+
+		// Player
+		let posPlayer = this.map.objects.player[0];
+		this.player = new Player(this, posPlayer.x+posPlayer.width/2, posPlayer.y+posPlayer.height/2);
+		
 		// Enemies
 		this.enemies = this.game.add.group();
 		this.map.objects.spawner.forEach((spawn) => {
 			let enemy = new Enemy(this, spawn.x+spawn.width/2, spawn.y+spawn.height/2, spawn.properties.type);
 			this.enemies.add(enemy.sprite);
 		});
-
-		// Player
-		let posPlayer = this.map.objects.player[0];
-		this.player = new Player(this, posPlayer.x+posPlayer.width/2, posPlayer.y+posPlayer.height/2);
-		
-		// PathFinder
-		let arr = this._createWalkableArr(300, [[72, 79], [90, 97]]);
-		this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
-		this.pathfinder.setGrid(this.map.layers[0].data, arr);
 	}
 
 	_createWalkableArr(all, ranges) {
