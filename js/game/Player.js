@@ -12,6 +12,11 @@ class Player extends Entity {
 	}
 
 	update() {
+		// Bonuses use (mrrr)
+		this.level.physics.arcade.overlap(this.sprite, this.level.bonuses, (sprite, bonus) => {
+			bonus.kill();
+		});
+
 		if(this.cursors.up.isDown)
 			this.level.physics.arcade.accelerationFromRotation(this.sprite.rotation, 300, this.sprite.body.acceleration);
 

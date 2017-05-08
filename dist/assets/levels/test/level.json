@@ -244,7 +244,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "width":0,
          "x":0,
          "y":0
@@ -377,7 +377,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "width":0,
          "x":0,
          "y":0
@@ -518,12 +518,12 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":11.3333333333334,
-                 "x":617.333333333333,
-                 "y":749.333333333333
+                 "width":11.3333,
+                 "x":617.333,
+                 "y":749.333
                 }, 
                 {
-                 "height":11.3333333333334,
+                 "height":11.3333,
                  "id":88,
                  "name":"",
                  "properties":
@@ -534,11 +534,11 @@
                  "type":"",
                  "visible":true,
                  "width":10,
-                 "x":619.333333333333,
-                 "y":816.666666666667
+                 "x":619.333,
+                 "y":816.667
                 }, 
                 {
-                 "height":9.33333333333337,
+                 "height":9.33333,
                  "id":89,
                  "name":"",
                  "properties":
@@ -549,8 +549,8 @@
                  "type":"",
                  "visible":true,
                  "width":10,
-                 "x":697.333333333333,
-                 "y":682.666666666667
+                 "x":697.333,
+                 "y":682.667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -571,7 +571,7 @@
                  "name":"",
                  "properties":
                     {
-                     "type":"bullets"
+                     "type":"health"
                     },
                  "rotation":0,
                  "type":"",
@@ -596,7 +596,7 @@
                  "y":875
                 }, 
                 {
-                 "height":230,
+                 "height":18,
                  "id":50,
                  "name":"",
                  "properties":
@@ -606,13 +606,73 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":35,
-                 "x":606,
-                 "y":668
+                 "width":15.5,
+                 "x":616,
+                 "y":847.5
+                }, 
+                {
+                 "height":18,
+                 "id":91,
+                 "name":"",
+                 "properties":
+                    {
+                     "type":"health"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":15.5,
+                 "x":616.25,
+                 "y":775.5
+                }, 
+                {
+                 "height":18,
+                 "id":92,
+                 "name":"",
+                 "properties":
+                    {
+                     "type":"coins"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":15.5,
+                 "x":615.25,
+                 "y":707.5
+                }, 
+                {
+                 "height":18,
+                 "id":93,
+                 "name":"",
+                 "properties":
+                    {
+                     "type":"coins"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":15.5,
+                 "x":653.75,
+                 "y":677.5
+                }, 
+                {
+                 "height":18,
+                 "id":94,
+                 "name":"",
+                 "properties":
+                    {
+                     "type":"coins"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":15.5,
+                 "x":718.25,
+                 "y":677
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "width":0,
          "x":0,
          "y":0
@@ -640,12 +700,12 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "width":0,
          "x":0,
          "y":0
         }],
- "nextobjectid":91,
+ "nextobjectid":95,
  "orientation":"orthogonal",
  "properties":
     {

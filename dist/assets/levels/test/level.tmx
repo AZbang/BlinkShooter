@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="91">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="95">
  <tileset firstgid="1" name="tilemap" tilewidth="16" tileheight="16" tilecount="324">
   <image source="tilemap.png" trans="aaff7f" width="288" height="288"/>
  </tileset>
@@ -107,7 +107,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#ff3318" name="deadArea" visible="0">
+ <objectgroup color="#ff3318" name="deadArea">
   <object id="1" x="811.758" y="604" width="39.1512" height="139.878"/>
   <object id="2" x="1201.33" y="617.667" width="26.67" height="428.333"/>
   <object id="4" x="799" y="733.333" width="429" height="45.3333"/>
@@ -124,7 +124,7 @@
   <object id="59" x="1325" y="1064.33" width="4.33333" height="28.6667"/>
   <object id="61" x="1320.33" y="939.667" width="117.333" height="56"/>
  </objectgroup>
- <objectgroup color="#0055ff" name="spawner" visible="0">
+ <objectgroup color="#0055ff" name="spawner">
   <object id="41" x="1007.67" y="672.667" width="34" height="28">
    <properties>
     <property name="type" value="robot3"/>
@@ -171,10 +171,10 @@
   <object id="88" x="619.333" y="816.667" width="10" height="11.3333"/>
   <object id="89" x="697.333" y="682.667" width="10" height="9.33333"/>
  </objectgroup>
- <objectgroup color="#55aa00" name="bonuses" visible="0">
+ <objectgroup color="#55aa00" name="bonuses">
   <object id="48" x="1357" y="1020" width="38" height="38">
    <properties>
-    <property name="type" value="bullets"/>
+    <property name="type" value="health"/>
    </properties>
   </object>
   <object id="49" x="1353" y="875" width="41" height="39">
@@ -182,13 +182,33 @@
     <property name="type" value="health"/>
    </properties>
   </object>
-  <object id="50" x="606" y="668" width="35" height="230">
+  <object id="50" x="616" y="847.5" width="15.5" height="18">
+   <properties>
+    <property name="type" value="coins"/>
+   </properties>
+  </object>
+  <object id="91" x="616.25" y="775.5" width="15.5" height="18">
+   <properties>
+    <property name="type" value="health"/>
+   </properties>
+  </object>
+  <object id="92" x="615.25" y="707.5" width="15.5" height="18">
+   <properties>
+    <property name="type" value="coins"/>
+   </properties>
+  </object>
+  <object id="93" x="653.75" y="677.5" width="15.5" height="18">
+   <properties>
+    <property name="type" value="coins"/>
+   </properties>
+  </object>
+  <object id="94" x="718.25" y="677" width="15.5" height="18">
    <properties>
     <property name="type" value="coins"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ffaa00" name="player" visible="0">
+ <objectgroup color="#ffaa00" name="player">
   <object id="55" x="609.667" y="914.667" width="24.6667" height="22.6667">
    <properties>
     <property name="spawn_player" value="true"/>

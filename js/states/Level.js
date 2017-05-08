@@ -37,6 +37,20 @@ class Level {
 			this.patruleFlags.push(rectangle);
 		});
 
+		// Bonuses
+		this.bonuses = this.add.group();
+		this.bonuses.enableBody = true;
+		this.map.objects.bonuses.forEach((rect) => {
+			let id;
+			if(rect.properties.type == 'coins') id = 5;
+			else if(rect.properties.type == 'health') id = 2;
+
+			let item = this.add.sprite(rect.x+rect.width/2, rect.y+rect.height/2, 'items', id);
+			item.type = rect.type;
+			item.smoothed = false;
+			this.bonuses.add(item);
+		});
+
 		// PathFinder
 		let arr = this._createWalkableArr(300, [[72, 79], [90, 97]]);
 		this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
