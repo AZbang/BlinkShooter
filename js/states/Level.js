@@ -1,5 +1,6 @@
-const Player = require('../game/Player.js');
+const Player = require('../game/Player');
 const Enemy = require('../game/Enemy');
+const LevelInterface = require('../game/LevelInterface');
 
 class Level {
 	constructor() {
@@ -54,6 +55,8 @@ class Level {
 			let enemy = new Enemy(this, spawn.x+spawn.width/2, spawn.y+spawn.height/2, spawn.properties.type);
 			this.enemies.add(enemy.sprite);
 		});
+
+		this.interface = new LevelInterface(this, {hp: 8, scores: 100});
 	}
 
 	// utils method for inverted impassable tiles to passable (SHIT CODE!)
