@@ -10,7 +10,7 @@
 		"weapon": "blaster"
 	},
 	"robot": {
-		"hp": 10,
+		"hp": 3,
 		"jump": 3,
 		"speed": 100,
 		"radiusVisibility": 150,

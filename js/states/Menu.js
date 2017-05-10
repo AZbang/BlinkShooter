@@ -3,13 +3,20 @@ class Menu {
 
 	}
 	create() {
-		this.bg = this.game.add.tileSprite(0, 0, this.world.width, this.world.height, 'bg');
+		this.bg = this.add.tileSprite(0, 0, this.world.width, this.world.height, 'bg');
 
-		this.label = this.add.bitmapText(this.world.centerX, 50, 'font', 'MENU', 50);
-		this.label.anchor.set(0.5);
-		this.label.smoothed = false;
+		this.labelPath1 = this.add.bitmapText(87, 25, 'font', 'BLINK', 35);
+		this.labelPath1.smoothed = false;
+		this.add.tween(this.labelPath1)
+			.to({alpha: 0}, 200)
+			.to({alpha: 1}, 100)
+			.start()
+			.loop();
 
-		this.btnStart = this.add.bitmapText(this.world.centerX, this.world.centerY-20, 'font', 'START', 30);
+		this.labelPart2 = this.add.bitmapText(248, 35, 'font', 'SHOOTER', 25);
+		this.labelPart2.smoothed = false;
+
+		this.btnStart = this.add.bitmapText(this.world.centerX, this.world.centerY-35, 'font', 'START', 30);
 		this.btnStart.anchor.set(0.5);
 		this.btnStart.inputEnabled = true;
 		this.btnStart.events.onInputDown.add(() => {
@@ -26,7 +33,7 @@ class Menu {
 		});
 
 
-		this.btnSettings = this.add.bitmapText(this.world.centerX, this.world.centerY+25, 'font', 'SETTINGS', 30);
+		this.btnSettings = this.add.bitmapText(this.world.centerX, this.world.centerY+10, 'font', 'SETTINGS', 30);
 		this.btnSettings.anchor.set(0.5);
 		this.btnSettings.inputEnabled = true;
 		this.btnSettings.events.onInputDown.add(() => {
@@ -41,6 +48,9 @@ class Menu {
 		this.btnSettings.events.onInputOut.add(() => {
 			this.add.tween(this.btnSettings.scale).to({x: 1, y: 1}, 300).start();
 		});
+
+		this.info = this.add.bitmapText(10, this.world.height-75, 'font2', 'Powered by azbang @v0.1', 14);
+		this.info.smoothed = false;
 	}
 	update() {
 		this.bg.tilePosition.x += 1;

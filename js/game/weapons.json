@@ -14,7 +14,7 @@
 		"range": 100,
 		"speed": 400,
 		"damage": 10,
-		"delay": 100,
+		"delay": 500,
 		"quantity": 2
 		// "trackX": 1,
 		// "trackY": 1

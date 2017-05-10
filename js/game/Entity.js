@@ -68,7 +68,7 @@ class Entity {
 			this.level.physics.arcade.overlap(bullets[i], this.sprite, (person, bullet) => {
 				if(!this.isJumping && bullet.scale.x < 1) {
 					bullet.kill();
-					this.dead();
+					this.onWounded && this.onWounded();
 				}
 			});
 		}

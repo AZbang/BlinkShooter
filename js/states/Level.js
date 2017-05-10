@@ -1,6 +1,5 @@
 const Player = require('../game/Player');
 const Enemy = require('../game/Enemy');
-const LevelInterface = require('../game/LevelInterface');
 
 class Level {
 	constructor() {
@@ -46,7 +45,7 @@ class Level {
 			else if(rect.properties.type == 'health') id = 2;
 
 			let item = this.add.sprite(rect.x+rect.width/2, rect.y+rect.height/2, 'items', id);
-			item.type = rect.type;
+			item.type = rect.properties.type;
 			item.smoothed = false;
 			this.bonuses.add(item);
 		});
@@ -69,8 +68,6 @@ class Level {
 			let enemy = new Enemy(this, spawn.x+spawn.width/2, spawn.y+spawn.height/2, spawn.properties.type);
 			this.enemies.add(enemy.sprite);
 		});
-
-		this.interface = new LevelInterface(this, {hp: 8, scores: 100});
 	}
 
 	// utils method for inverted impassable tiles to passable (SHIT CODE!)

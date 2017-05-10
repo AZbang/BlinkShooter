@@ -3,6 +3,11 @@ class Preload {
 
 	}
 	preload() {
+		this.load.audio('music1', '../assets/music/theme-1.ogg');
+		this.load.audio('music2', '../assets/music/theme-2.ogg');
+		this.load.audio('music3', '../assets/music/theme-3.ogg');
+		this.load.audio('music4', '../assets/music/theme-4.wav');
+
 		this.load.image('bg', '../assets/bg.png');
 		this.load.image('tilemap', '../assets/levels/tilemap.png');
 		this.load.image('lifebox', '../assets/hud/lifebox.png');
@@ -20,6 +25,21 @@ class Preload {
 	}
 
 	create() {
+		let musics = [
+			this.add.audio('music1'),
+			this.add.audio('music2'),
+			this.add.audio('music3'),
+			this.add.audio('music4')
+		];
+		for(let i = 0; i < musics.length; i++) {
+			(() => {
+				let next = i+1 > musics.length-1 ? 0 : i+1;
+				musics[i].onStop.add(() => musics[next].play());
+			})();
+		}
+		musics[0].play();
+		this.game.musics = musics;
+
 		this.state.start('Menu');
 	}
 }

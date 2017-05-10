@@ -39,6 +39,10 @@ class Enemy extends Entity {
 			this.isPatruleMode = false;
 		}
 	}
+
+	onWounded() {
+		!this.hp-- && this.dead();
+	}
 	findPathToFlag() {
 		if(!this.isPatruleMode) return;
 

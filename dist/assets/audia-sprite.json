@@ -1,0 +1,72 @@
+{
+	"spritemap": {
+		"alert": {
+			"start": 0,
+			"diration": 302
+		},
+		"cure": {
+			"start": 2000,
+			"diration": 612
+		},
+		"death": {
+			"start": 4000,
+			"diration": 359
+		},
+		"explosion-1": {
+			"start": 6000,
+			"diration": 592
+		},
+		"explosion-2": {
+			"start": 8000,
+			"diration": 787
+		},
+		"explosion-3": {
+			"start": 10000,
+			"diration": 532
+		},
+		"flame-thrower": {
+			"start": 12000,
+			"diration": 809
+		},
+		"hit": {
+			"start": 14000,
+			"diration": 1846
+		},
+		"no-ammo": {
+			"start": 17000,
+			"diration": 118
+		},
+		"shoot-1": {
+			"start": 19000,
+			"diration": 444
+		},
+		"shoot-2": {
+			"start": 21000,
+			"diration": 280
+		},
+		"shoot-3": {
+			"start": 23000,
+			"diration": 469
+		},
+		"shoot-destroy": {
+			"start": 25000,
+			"diration": 532
+		},
+		"sword-1": {
+			"start": 27000,
+			"diration": 1364
+		},
+		"sword-2": {
+			"start": 30000,
+			"diration": 338
+		},
+		"window-hit-1": {
+			"start": 32000,
+			"diration": 103
+		},
+		"window-hit-2": {
+			"start": 34000,
+			"diration": 206
+		}
+	}
+}

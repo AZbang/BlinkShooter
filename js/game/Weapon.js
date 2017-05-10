@@ -36,6 +36,7 @@ class Weapon {
 			bullet.smoothed = false;
 			bullet.scale.setTo(this.person.sprite.scale.x/2, this.person.sprite.scale.y/2);
 			bullet.body.updateBounds();
+			return true;
 		}
 	}
 	update() {

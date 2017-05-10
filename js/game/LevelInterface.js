@@ -9,9 +9,9 @@ class LevelInterface {
 		}
 
 		// HP BAR
-		this.hp = data.hp;
 		this.lifebox = this.level.add.sprite(this.padding.x, this.padding.y, 'lifebox');
 		this.lifebox.fixedToCamera = true;
+		this.hp = data.hp;
 		for(let i = 0; i < this.hp; i++) {
 			let life = this.level.add.sprite(7*i+12, 6, 'liferect');
 			this.lifebox.addChild(life);
@@ -22,48 +22,43 @@ class LevelInterface {
 		this.textScores = this.level.add.bitmapText(this.padding.x+10,  this.padding.y+30, 'font', this.scores, 20);
 		this.textScores.fixedToCamera = true;
 		this.textScores.smoothed = false;
+
+		this.timerHP = this.level.time.create(false);
+		this.timerScores = this.level.time.create(false);
 	}
 
-	subtractHP() {
+	setHP(val) {
+		if(val < 0 || val >= 8) return;
 
-	}
-	addHP() {
-		
-	}
-	setHP() {
-		
-	}
-	setScores() {
-		
-	}
-	addScores(val) {
-		let timer = this.level.time.create(false);
-		let top = this.scores+val;
-		timer.loop(100, () => {
-			if(this.scores === top) {
-				timer.remove();
+		let sign = val-this.hp > 0 ? 1 : 0;
+
+		this.timerHP.loop(100, () => {
+			if(this.hp === val || this.hp < 1 || this.hp > 8) {
+				this.timerHP.stop();
 				return;
 			}
-			this.scores++;
-			this.textScores.text = this.scores;
+			this.level.add.tween(this.lifebox.children[this.hp-1])
+				.to({alpha: sign}, 20)
+				.to({alpha: 1-sign}, 20)
+				.to({alpha: sign}, 20)
+				.to({alpha: 1-sign}, 20)
+				.to({alpha: sign}, 20)
+				.start();
+			sign ? this.hp++ : this.hp--;
 		});
-		timer.start();
+		this.timerHP.start();
 	}
-	subtractScores(val) {
-		let top = this.scores-val;
-		if(!top) return false;
-
-		let timer = this.level.time.create(false);
-		timer.loop(100, () => {
-			if(this.scores === top) {
-				timer.remove();
+	setScores(val) {
+		let sign = val-this.scores > 0 ? 1 : 0;
+		this.timerScores.loop(10, () => {
+			if(this.scores === val || this.scores <= 0) {
+				this.timerScores.stop();
 				return;
 			}
-			this.scores--;
+			sign ? this.scores++ : this.scores--;
 			this.textScores.text = this.scores;
 		});
-		timer.start();
-		return true;
+		this.timerScores.start();
 	}
 }
 
