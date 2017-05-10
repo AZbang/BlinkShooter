@@ -27,6 +27,13 @@ class Entity {
 	}
 
 	_createPhaserObjects() {
+		this.fxJump = this.level.add.sprite(this.x, this.y, 'fx_jump', 0);
+		this.fxJump.alpha = 0;
+		this.fxJump.scale.set(2);
+		this.fxJump.anchor.set(0.5);
+		this.fxJump.smoothed = false;
+		this.fxJump.animations.add('active');
+
 		this.sprite = this.level.add.sprite(this.x, this.y, 'bodies', this.bodyId);
 		this.sprite.anchor.set(0.5);
 		this.sprite.smoothed = false;

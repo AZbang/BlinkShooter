@@ -28,10 +28,10 @@ class Player extends Entity {
 		else this.sprite.body.acceleration.set(0);
 
 		if(this.cursors.left.isDown)
-			this.sprite.body.angularVelocity = -300;
+			this.sprite.body.angularVelocity = -200;
 
 		else if(this.cursors.right.isDown)
-			this.sprite.body.angularVelocity = 300;
+			this.sprite.body.angularVelocity = 200;
 
 		else this.sprite.body.angularVelocity = 0;
 
@@ -39,8 +39,14 @@ class Player extends Entity {
 			this.weapon.fire() && this.interface.setScores(this.interface.scores-10);
 		}
 
-		if(this.jumpButton.isDown && !this.isJumping)
+		if(this.jumpButton.isDown && !this.isJumping) {
+			this.fxJump.play('active', 20);
+			this.fxJump.alpha = 1;
+			this.fxJump.x = this.sprite.body.x+5;
+			this.fxJump.y = this.sprite.body.y+5;
+			this.level.add.tween(this.fxJump).to({alpha: 0}, 600).start();
 			this.jump(this.jumping);
+		}
 	}
 
 	onWounded() {

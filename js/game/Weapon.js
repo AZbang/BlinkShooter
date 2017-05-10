@@ -21,12 +21,26 @@ class Weapon {
 		this.weapon.fireRate = this.delay; 
 		this.weapon.bullets.typeOwner = this.person.constructor.name;
 
+		this.fxFire = this.level.add.sprite(0, 0, 'fx_fire', 0);
+		this.fxFire.alpha = 0;
+		this.fxFire.scale.set(2);
+		this.fxFire.anchor.set(0.5);
+		this.fxFire.smoothed = false;
+		this.fxFire.animations.add('active');
+
+		this.fxCollide = this.level.add.sprite(0, 0, 'fx_explosion', 0);
+		this.fxCollide.alpha = 0;
+		this.fxCollide.anchor.set(0.5);
+		this.fxCollide.smoothed = false;
+		this.fxCollide.animations.add('active');
+
 		this.updateTrack();
 	}
 
 	updateTrack() {
 		let x = this.trackX*this.person.sprite.scale.x;
 		let y = this.trackY*this.person.sprite.scale.y;
+		
 		this.weapon.trackSprite(this.person.sprite, x, y, true);
 	}
 	fire() {
@@ -36,13 +50,27 @@ class Weapon {
 			bullet.smoothed = false;
 			bullet.scale.setTo(this.person.sprite.scale.x/2, this.person.sprite.scale.y/2);
 			bullet.body.updateBounds();
+
+			this.fxFire.scale.x = this.person.sprite.scale.x;
+			this.fxFire.scale.y = this.person.sprite.scale.y;
+			this.fxFire.x = this.weapon._rotatedPoint.x;
+			this.fxFire.y = this.weapon._rotatedPoint.y;
+			this.fxFire.alpha = 1;
+			this.fxFire.play('active', 20);
+			this.level.add.tween(this.fxFire).to({alpha: 0}, 600).start();
+
 			return true;
 		}
 	}
 	update() {
 		this.level.physics.arcade.collide(this.weapon.bullets, this.level.layerMap, (bullet) => {
+			this.fxCollide.x = bullet.x;
+			this.fxCollide.y = bullet.y;
+			this.fxCollide.alpha = 1;
+			this.fxCollide.play('active', 100);
+			this.level.add.tween(this.fxCollide).to({alpha: 0}, 300).start();
+
 			bullet.kill();
-			// animation #bang!
 		});
 	}
 }

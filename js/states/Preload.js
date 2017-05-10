@@ -13,6 +13,13 @@ class Preload {
 		this.load.image('lifebox', '../assets/hud/lifebox.png');
 		this.load.image('liferect', '../assets/hud/liferect.png');
 		this.load.image('score', '../assets/hud/score.png');
+
+		this.load.spritesheet('fx_jump', '../assets/FX/jump.png', 47, 45, 6);
+		this.load.spritesheet('fx_fire', '../assets/FX/fire.png', 32, 33, 6);
+		this.load.spritesheet('fx_explosion', '../assets/FX/explosion.png', 35, 36, 7);
+		this.load.spritesheet('fx_hit', '../assets/FX/hit.png', 16, 16, 6);
+		this.load.spritesheet('fx_collide', '../assets/FX/collide.png', 37, 37, 6);
+
 		this.load.bitmapFont('font', '../assets/font.png', '../assets/font.xml');
 		this.load.bitmapFont('font2', '../assets/font2.png', '../assets/font2.xml');
 
