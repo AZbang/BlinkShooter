@@ -51,6 +51,9 @@ class Weapon {
 			bullet.scale.setTo(this.person.sprite.scale.x/2, this.person.sprite.scale.y/2);
 			bullet.body.updateBounds();
 
+			this.person.sprite.body.velocity.x -= Math.cos(this.person.sprite.rotation) * 100;
+			this.person.sprite.body.velocity.y -= Math.sin(this.person.sprite.rotation) * 100;
+
 			this.fxFire.scale.x = this.person.sprite.scale.x;
 			this.fxFire.scale.y = this.person.sprite.scale.y;
 			this.fxFire.x = this.weapon._rotatedPoint.x;

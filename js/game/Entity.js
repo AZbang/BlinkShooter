@@ -34,6 +34,11 @@ class Entity {
 		this.fxJump.smoothed = false;
 		this.fxJump.animations.add('active');
 
+		// this.legs = this.level.add.sprite(this.x, this.y, 'legs', 0);
+		// this.legs.anchor.set(0.5);
+		// this.legs.smoothed = false;
+		// this.legs.animations.add('walk');
+
 		this.sprite = this.level.add.sprite(this.x, this.y, 'bodies', this.bodyId);
 		this.sprite.anchor.set(0.5);
 		this.sprite.smoothed = false;
@@ -74,18 +79,21 @@ class Entity {
 
 			this.level.physics.arcade.overlap(bullets[i], this.sprite, (person, bullet) => {
 				if(!this.isJumping && bullet.scale.x < 1) {
-					bullet.kill();
+					this.sprite.body.velocity.x += Math.cos(this.sprite.rotation) * 10;
+					this.sprite.body.velocity.y += Math.sin(this.sprite.rotation) * 10;
 					this.onWounded && this.onWounded();
+					bullet.kill();
 				}
 			});
 		}
 		// colliding with solid tiles
-		this.level.physics.arcade.collide(this.sprite, this.level.layerMap);
+		this.level.physics.arcade.collide(this.sprite, this.level.firstLayerMap);
+		this.level.physics.arcade.collide(this.sprite, this.level.secondLayerMap);
 
 		// colliding with empty map (dead)
 		if(!this.isJumping) {
-			for(let i = 0; i < this.level.deadRects.length; i++) {
-				let rect = this.level.deadRects[i];
+			for(let i = 0; i < this.level.deadAreas.length; i++) {
+				let rect = this.level.deadAreas[i];
 
 				let pl = new Phaser.Rectangle(this.sprite.body.x, this.sprite.body.y, this.sprite.body.width, this.sprite.body.height);
 				if(Phaser.Rectangle.intersects(rect, pl)) {

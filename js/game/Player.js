@@ -15,12 +15,24 @@ class Player extends Entity {
 	}
 
 	update() {
-		// Bonuses use (mrrr)
-		this.level.physics.arcade.overlap(this.sprite, this.level.bonuses, (sprite, bonus) => {
-			if(bonus.type == 'health') this.interface.setHP(this.interface.hp+2);
+		// Items use
+		this.level.physics.arcade.overlap(this.sprite, this.level.items, (sprite, item) => {
+			if(item.type == 'health') this.interface.setHP(this.interface.hp+2);
 			else this.interface.setScores(this.interface.scores+100);
-			bonus.kill();
+			item.kill();
 		});
+
+		// Show text window
+		for(let i = 0; i < this.level.textAreas.length; i++) {
+			let rect = this.level.textAreas[i];
+
+			let pl = new Phaser.Rectangle(this.sprite.body.x, this.sprite.body.y, this.sprite.body.width, this.sprite.body.height);
+			if(Phaser.Rectangle.intersects(rect, pl)) {
+				this.interface.showTextWindow(rect);
+				this.level.textAreas.splice(i, 1);
+				return;
+			}
+		}
 
 		if(this.cursors.up.isDown)
 			this.level.physics.arcade.accelerationFromRotation(this.sprite.rotation, 300, this.sprite.body.acceleration);

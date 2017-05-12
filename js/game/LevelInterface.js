@@ -25,6 +25,60 @@ class LevelInterface {
 
 		this.timerHP = this.level.time.create(false);
 		this.timerScores = this.level.time.create(false);
+		this.timerText = this.level.time.create(false);
+
+		// TEXT WINDOW
+		this.textWindow = this.level.add.sprite(90, this.padding.y, 'window');
+		this.textWindow.alpha = 0;
+		this.textWindow.fixedToCamera = true;
+		this.textWindow.inputEnabled = true;
+
+		let content = this.level.add.bitmapText(20,  5, 'font2', null, 20);
+		this.textWindow.addChild(content);
+
+		let infoText = this.level.add.bitmapText(150, 130, 'font2', 'TAP TO CONTINUE', 20);
+		this.textWindow.addChild(infoText);
+		this.blinkInfoText = this.level.add.tween(infoText)
+			.to({alpha: 0}, 300)
+			.to({alpha: 1}, 300)
+			.loop();
+	}
+
+	showTextWindow(info, current=1) {
+		this.textWindow.children[0].text = '';
+		
+		if(info['text' + current]) {
+			this.level.add.tween(this.textWindow)
+				.to({alpha: 1}, 500)
+				.start();
+
+			this.blinkInfoText.start();
+
+			this.textWindow.inputEnabled = true;
+			this.textWindow.events.onInputUp.add(() => {
+				this.showTextWindow(info, current+1);
+			});
+
+			let i = 0;
+			let txt = info['text' + current];
+			this.timerText.loop(100, () => {
+				if(!txt[i]) {
+					this.timerText.stop();
+					return;
+				}
+				this.textWindow.children[0].text += txt[i];
+				i++;
+			});
+			this.timerText.start();
+		} else {
+			this.blinkInfoText.stop();
+			this.timerText.stop();
+			this.level.add.tween(this.textWindow)
+				.to({alpha: 0}, 500)
+				.start();
+			this.textWindow.inputEnabled = false;
+			this.currentTextWindow = 1;
+		}
 	}
 
 	setHP(val) {
@@ -45,8 +99,7 @@ class LevelInterface {
 				.to({alpha: sign}, 20)
 				.start();
 			sign ? this.hp++ : this.hp--;
-		});
-		this.timerHP.start();
+		}).start();
 	}
 	setScores(val) {
 		let sign = val-this.scores > 0 ? 1 : 0;
