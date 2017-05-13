@@ -1,8 +1,4 @@
 class Settings {
-	constructor() {
-
-	}
-
 	create() {
 		this.bg = this.game.add.tileSprite(0, 0, this.world.width, this.world.height, 'bg');
 

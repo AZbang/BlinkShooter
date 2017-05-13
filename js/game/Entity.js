@@ -60,14 +60,17 @@ class Entity {
 		this.sprite.syncBounds = true;
 
 		this.tweenBreathe = this.level.add.tween(this.sprite.scale)
-			.to({x:1.1, y: 1.1}, 1000, Phaser.Easing.Quadratic.Out)
-			.to({x: 1, y: 1})
+			.to({x:1.1, y: 1.1}, 600, Phaser.Easing.Quadratic.Out)
+			.to({x: 1, y: 1}, 500, Phaser.Easing.Quadratic.In)
 			.loop();
 		this.tweenBreathe.start();
 	}
 
 	_update() {
 		if(this.isDead) return;
+
+		// colliding with solid tiles
+		this.level.physics.arcade.collide(this.sprite, this.level.firstLayerMap);
 
 		// update weapon collisions
 		this.weapon.update();
@@ -86,9 +89,6 @@ class Entity {
 				}
 			});
 		}
-		// colliding with solid tiles
-		this.level.physics.arcade.collide(this.sprite, this.level.firstLayerMap);
-		this.level.physics.arcade.collide(this.sprite, this.level.secondLayerMap);
 
 		// colliding with empty map (dead)
 		if(!this.isJumping) {

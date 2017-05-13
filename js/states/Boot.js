@@ -1,5 +1,5 @@
 class Boot {
-	constructor() {
+	init() {
 		this.w = 480;
 		this.h = 320;
 	}

@@ -2,15 +2,9 @@ const Player = require('../game/Player');
 const Enemy = require('../game/Enemy');
 
 class Level {
-	constructor() {
-		this.level;
-	}
-	preload() {
-		this.load.tilemap('map', '../assets/levels/test/level1.json', null, Phaser.Tilemap.TILED_JSON);
-	}
 	create() {
 		// TileMap
-		this.map = this.game.add.tilemap('map', 16, 16);
+		this.map = this.game.add.tilemap('level' + this.game.currentLevel, 16, 16);
 		this.map.addTilesetImage('tilemap');
 		this.map.debugMap = true;
 
@@ -27,13 +21,9 @@ class Level {
 
 		// PathFinder
 		let arr = [];
-		console.log(this.map.tilesets[0].total);
 		for(let i in this.map.tilesets[0].tileProperties) {
 			if(this.map.tilesets[0].tileProperties[i].solid === 'false') arr.push(+i);
-			else {
-				this.map.setCollision(+i, true, this.firstLayerMap);
-				this.map.setCollision(+i, true, this.secondLayerMap);
-			}
+			else this.map.setCollision(+i, true, this.firstLayerMap);
 		}
 
 		this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
@@ -47,6 +37,11 @@ class Level {
 
 		// group for bullets
 		this.bullets = this.add.group();
+
+		// Next level area
+		let rect = this.map.objects.nextLevelArea[0];
+		this.nextLevelArea = new Phaser.Rectangle(rect.x, rect.y, rect.width, rect.height);
+		console.log(this.nextLevelArea);
 
 		// Player
 		let posPlayer = this.map.objects.player[0];
@@ -64,12 +59,21 @@ class Level {
 		this.items.enableBody = true;
 		this.map.objects.items && this.map.objects.items.forEach((rect) => {
 			let id;
-			if(rect.properties.type == 'coins') id = 5;
-			else if(rect.properties.type == 'health') id = 2;
+			if(rect.properties.type == 'coins') id = 4;
+			else if(rect.properties.type == 'health') id = 1;
+			else if(rect.properties.type == 'cartridge') id = 3;
 			else id = 0;
 
 			let item = this.add.sprite(rect.x+rect.width/2, rect.y+rect.height/2, 'items', id);
 			item.type = rect.properties.type;
+			item.anchor.set(0.5);
+			item.tween = this.add.tween(item.scale)
+				.to({x:1.1, y: 1.1}, 300)
+				.to({x: 0.8, y: 0.8}, 400)
+				.to({x: 1, y: 1}, 400)
+				.loop()
+				.start();
+
 			item.smoothed = false;
 			this.items.add(item);
 		});		
@@ -83,7 +87,7 @@ class Level {
 	}
 	_createDeadAreas() {
 		this.deadAreas = [];
-		this.map.objects.deadArea && this.map.objects.deadAreas.forEach((rect) => {
+		this.map.objects.deadAreas && this.map.objects.deadAreas.forEach((rect) => {
 			let rectangle = new Phaser.Rectangle(rect.x, rect.y, rect.width, rect.height)
 			this.deadAreas.push(rectangle);
 		});
@@ -102,17 +106,21 @@ class Level {
 		});
 	}
 
-	update() {
-		this.world.pivot.x = 1/this.player.sprite.x;
-		this.world.pivot.y = 1/this.player.sprite.y;
-		this.player._update();
+	nextLevel() {
+		this.game.currentLevel++;
 
+		if(this.game.currentLevel <= this.game.totalLevels) this.state.start('Level');
+		else this.state.start('Menu');
+	}
+
+	update() {
+		this.bg.tilePosition.x += 1;
+		this.bg.tilePosition.y += 1;
+
+		this.player._update();
 		for(let i = 0; i < this.enemies.children.length; i++) {
 			this.enemies.children[i].class._update();
 		}
-
-		this.bg.tilePosition.x += 1;
-		this.bg.tilePosition.y += 1;
 	}
 }
 

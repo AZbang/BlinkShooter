@@ -1,6 +1,6 @@
 class Preload {
-	constructor() {
-
+	init() {
+		this.game.totalLevels = 2;
 	}
 	preload() {
 		this.load.audio('music1', '../assets/music/theme-1.ogg');
@@ -32,6 +32,12 @@ class Preload {
 		this.load.atlas('weapons', 'assets/atlases/weapons.png', 'assets/atlases/weapons.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		this.load.atlas('items', 'assets/atlases/items.png', 'assets/atlases/items.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		this.load.atlas('bullets', 'assets/atlases/bullets.png', 'assets/atlases/bullets.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+
+		// load levels
+		let i = 1;
+		for(; i <= this.game.totalLevels; i++) {
+			this.load.tilemap('level' + i, '../assets/levels/test/level' + i + '.json', null, Phaser.Tilemap.TILED_JSON);
+		}
 	}
 
 	create() {
@@ -50,6 +56,7 @@ class Preload {
 		musics[0].play();
 		this.game.musics = musics;
 
+		this.game.currentLevel = 1;
 		this.state.start('Menu');
 	}
 }

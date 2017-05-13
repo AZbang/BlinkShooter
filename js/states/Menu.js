@@ -1,7 +1,4 @@
 class Menu {
-	constructor() {
-
-	}
 	create() {
 		this.bg = this.add.tileSprite(0, 0, this.world.width, this.world.height, 'bg');
 

@@ -17,16 +17,34 @@ class Player extends Entity {
 	update() {
 		// Items use
 		this.level.physics.arcade.overlap(this.sprite, this.level.items, (sprite, item) => {
+			if(item.isCollide) return;
+
 			if(item.type == 'health') this.interface.setHP(this.interface.hp+2);
-			else this.interface.setScores(this.interface.scores+100);
-			item.kill();
+			else if(item.type == 'coins') this.interface.setScores(this.interface.scores+100);
+			else if(item.type == 'cartridge') this.isCatridgeUse = true;
+
+			item.tween.stop();
+			item.isCollide = true;
+			this.level.add.tween(item.scale)
+				.to({x: 0, y: 0}, 1500, Phaser.Easing.Bounce.In)
+				.start()
+				.onComplete.add(() => item.kill);
 		});
+
+
+		let pl = new Phaser.Rectangle(this.sprite.body.x, this.sprite.body.y, this.sprite.body.width, this.sprite.body.height);
+		
+		if(this.isCatridgeUse) {
+			if(Phaser.Rectangle.intersects(this.level.nextLevelArea, pl)) {
+				this.level.nextLevel();
+				this.isCatridgeUse = false;
+
+			}
+		}
 
 		// Show text window
 		for(let i = 0; i < this.level.textAreas.length; i++) {
 			let rect = this.level.textAreas[i];
-
-			let pl = new Phaser.Rectangle(this.sprite.body.x, this.sprite.body.y, this.sprite.body.width, this.sprite.body.height);
 			if(Phaser.Rectangle.intersects(rect, pl)) {
 				this.interface.showTextWindow(rect);
 				this.level.textAreas.splice(i, 1);
@@ -47,9 +65,8 @@ class Player extends Entity {
 
 		else this.sprite.body.angularVelocity = 0;
 
-		if(this.fireButton.isDown && this.interface.scores) {
+		if(this.fireButton.isDown && this.interface.scores)
 			this.weapon.fire() && this.interface.setScores(this.interface.scores-10);
-		}
 
 		if(this.jumpButton.isDown && !this.isJumping) {
 			this.fxJump.play('active', 20);

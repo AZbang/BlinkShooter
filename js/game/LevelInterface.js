@@ -61,7 +61,7 @@ class LevelInterface {
 
 			let i = 0;
 			let txt = info['text' + current];
-			this.timerText.loop(100, () => {
+			this.timerText.loop(50, () => {
 				if(!txt[i]) {
 					this.timerText.stop();
 					return;

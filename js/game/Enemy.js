@@ -35,6 +35,7 @@ class Enemy extends Entity {
 				.to({rotation: angle}, this.speed/2)
 				.start();
 			this.weapon.fire();
+			
 			// patrule mode off
 			this.isPatruleMode = false;
 		}

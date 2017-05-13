@@ -1,7 +1,4 @@
 class LevelManager {
-	constructor(game) {
-		this.level;
-	}
 	create() {
 		this.bg = this.game.add.tileSprite(0, 0, this.world.width, this.world.height, 'bg');
 
@@ -17,6 +14,11 @@ class LevelManager {
 				let btn = this.add.bitmapText(45*x+80, 45*y+110, 'font', i, 18);
 				btn.anchor.set(0.5);
 				btn.inputEnabled = true;
+				btn.level = i;
+				if(i > this.game.totalLevels) {
+					btn.tint = 0xB0B0B0;
+					btn.disable = true;
+				} 
 				this.buttonsLevelSelect.add(btn);
 			}
 		}
@@ -24,13 +26,25 @@ class LevelManager {
 		this.buttonsLevelSelect.inputEnableChildren = true;
 
 		this.buttonsLevelSelect.onChildInputDown.add((btn) => {
+			if(btn.disable) return;
+
 			this.add.tween(btn.scale).to({x: 1.3, y: 1.3}, 300).start();
 		});
-		this.buttonsLevelSelect.onChildInputUp.add(this.goLevel, this);
+		this.buttonsLevelSelect.onChildInputUp.add((btn) => {
+			if(btn.disable) return;
+
+			this.game.currentLevel = btn.level;
+			this.goLevel();
+		}, this);
+
 		this.buttonsLevelSelect.onChildInputOver.add((btn) => {
+			if(btn.disable) return;
+
 			this.add.tween(btn.scale).to({x: 1.3, y: 1.3}, 300).start();
 		});
 		this.buttonsLevelSelect.onChildInputOut.add((btn) => {
+			if(btn.disable) return;
+
 			this.add.tween(btn.scale).to({x: 1, y: 1}, 300).start();
 		});
 	}
