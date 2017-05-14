@@ -33,15 +33,25 @@ class LevelInterface {
 		this.textWindow.fixedToCamera = true;
 		this.textWindow.inputEnabled = true;
 
-		let content = this.level.add.bitmapText(20,  5, 'font2', null, 20);
+		let content = this.level.add.bitmapText(20,  5, 'font2', null, 13);
 		this.textWindow.addChild(content);
 
-		let infoText = this.level.add.bitmapText(150, 130, 'font2', 'TAP TO CONTINUE', 20);
+		let infoText = this.level.add.bitmapText(this.textWindow.width-5, this.textWindow.height-10, 'font2', 'TAP TO CONTINUE', 15);
+		infoText.anchor.set(1);
 		this.textWindow.addChild(infoText);
+
 		this.blinkInfoText = this.level.add.tween(infoText)
 			.to({alpha: 0}, 300)
 			.to({alpha: 1}, 300)
 			.loop();
+
+		this.fxVoice = this.level.add.sprite(this.padding.x+15, this.textWindow.height+this.textWindow.y, 'fx_voice', 0);
+		this.fxVoice.anchor.set(0, 1);
+		this.fxVoice.scale.set(2);
+		this.fxVoice.alpha = 0;
+		this.fxVoice.fixedToCamera = true;
+		this.fxVoice.smoothed = false;
+		this.fxVoice.animations.add('active');
 	}
 
 	showTextWindow(info, current=1) {
@@ -53,6 +63,9 @@ class LevelInterface {
 				.start();
 
 			this.blinkInfoText.start();
+
+			this.fxVoice.alpha = 1;
+			this.fxVoice.play('active', 10, true);
 
 			this.textWindow.inputEnabled = true;
 			this.textWindow.events.onInputUp.add(() => {
@@ -71,6 +84,8 @@ class LevelInterface {
 			});
 			this.timerText.start();
 		} else {
+			this.fxVoice.alpha = 0;
+			this.fxVoice.animations.stop(null, true);
 			this.blinkInfoText.stop();
 			this.timerText.stop();
 			this.level.add.tween(this.textWindow)

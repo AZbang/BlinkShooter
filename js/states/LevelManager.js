@@ -1,5 +1,6 @@
 class LevelManager {
 	create() {
+		this.world.setBounds(0, 0, 480, 320);
 		this.bg = this.game.add.tileSprite(0, 0, this.world.width, this.world.height, 'bg');
 
 		this.label = this.add.bitmapText(this.world.centerX, 50, 'font', 'LEVEL SELECT', 30);

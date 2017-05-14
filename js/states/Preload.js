@@ -20,6 +20,7 @@ class Preload {
 		this.load.spritesheet('fx_explosion', '../assets/FX/explosion.png', 35, 36, 7);
 		this.load.spritesheet('fx_hit', '../assets/FX/hit.png', 16, 16, 6);
 		this.load.spritesheet('fx_collide', '../assets/FX/collide.png', 37, 37, 6);
+		this.load.spritesheet('fx_voice', '../assets/hud/voice.png', 20, 20, 7);
 
 		this.load.spritesheet('legs', '../assets/legs.png', 15, 17, 4);
 

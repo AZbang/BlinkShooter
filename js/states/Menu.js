@@ -1,5 +1,6 @@
 class Menu {
 	create() {
+		this.world.setBounds(0, 0, 480, 320);
 		this.bg = this.add.tileSprite(0, 0, this.world.width, this.world.height, 'bg');
 
 		this.labelPath1 = this.add.bitmapText(87, 25, 'font', 'BLINK', 35);
@@ -16,6 +17,7 @@ class Menu {
 		this.btnStart = this.add.bitmapText(this.world.centerX, this.world.centerY-35, 'font', 'START', 30);
 		this.btnStart.anchor.set(0.5);
 		this.btnStart.inputEnabled = true;
+		console.log(this.btnStart);
 		this.btnStart.events.onInputDown.add(() => {
 			this.add.tween(this.btnStart.scale).to({x: 1.3, y: 1.3}, 300).start();
 		});
