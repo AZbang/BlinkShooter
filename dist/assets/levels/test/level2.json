@@ -87,6 +87,7 @@
                  "name":"",
                  "properties":
                     {
+                     "order":"1",
                      "type":"coins"
                     },
                  "rotation":0,
@@ -95,6 +96,66 @@
                  "width":16.3636,
                  "x":415.455,
                  "y":398.909
+                }, 
+                {
+                 "height":10.5,
+                 "id":28,
+                 "name":"",
+                 "properties":
+                    {
+                     "type":"coins"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":10.5,
+                 "x":537,
+                 "y":527
+                }, 
+                {
+                 "height":8.5,
+                 "id":29,
+                 "name":"",
+                 "properties":
+                    {
+                     "type":"coins"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":8,
+                 "x":538.5,
+                 "y":504
+                }, 
+                {
+                 "height":5.5,
+                 "id":30,
+                 "name":"",
+                 "properties":
+                    {
+                     "type":"coins"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":6,
+                 "x":540,
+                 "y":483.5
+                }, 
+                {
+                 "height":5.5,
+                 "id":31,
+                 "name":"",
+                 "properties":
+                    {
+                     "type":"coins"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":5.5,
+                 "x":541,
+                 "y":461.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -277,7 +338,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":28,
+ "nextobjectid":32,
  "orientation":"orthogonal",
  "properties":
     {

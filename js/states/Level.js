@@ -1,6 +1,8 @@
 const Player = require('../game/Player');
 const Enemy = require('../game/Enemy');
 
+const UI = require('../mixins/UI.js');
+
 class Level {
 	create() {
 		// TileMap
@@ -19,13 +21,21 @@ class Level {
 		this.secondLayerMap.resizeWorld();
 		this.secondLayerMap.smoothed = false;
 
+		this.info = UI.addText(10, 220, 'font2', 'Powered by azbang @v0.1', 14);
+		this.info.anchor.set(0);
+		this.info.fixedToCamera = true;
+
 		// PathFinder
 		let arr = [];
-		for(let i in this.map.tilesets[0].tileProperties) {
-			if(this.map.tilesets[0].tileProperties[i].solid === 'false') arr.push(+i);
-			else this.map.setCollision(+i, true, this.firstLayerMap);
+		let props =  this.map.tilesets[0].tileProperties;
+
+		for(let i in props) {
+			if(props[i].solid === 'false') arr.push(+i);
+			else if(props[i].solid === 'true') this.map.setCollision(+i, true, this.firstLayerMap);
 		}
 
+		this.vjoy = this.game.plugins.add(Phaser.Plugin.VJoy);
+		this.vjoy.enable();
 		this.pathfinder = this.game.plugins.add(Phaser.Plugin.PathFinderPlugin);
 		this.pathfinder.setGrid(this.map.layers[0].data, arr);
 
@@ -41,7 +51,6 @@ class Level {
 		// Next level area
 		let rect = this.map.objects.nextLevelArea[0];
 		this.nextLevelArea = new Phaser.Rectangle(rect.x, rect.y, rect.width, rect.height);
-		console.log(this.nextLevelArea);
 
 		// Player
 		let posPlayer = this.map.objects.player[0];
@@ -58,25 +67,37 @@ class Level {
 		this.items = this.add.group();
 		this.items.enableBody = true;
 		this.map.objects.items && this.map.objects.items.forEach((rect) => {
-			let id;
-			if(rect.properties.type == 'coins') id = 4;
-			else if(rect.properties.type == 'health') id = 1;
-			else if(rect.properties.type == 'cartridge') id = 3;
-			else id = 0;
+			let item;
+			if(rect.properties.type == 'coins') {
+				let order = rect.properties.order || 0;
 
-			let item = this.add.sprite(rect.x+rect.width/2, rect.y+rect.height/2, 'items', id);
+				item = this.add.sprite(rect.x+rect.width/2, rect.y+rect.height/2, 'token', 0);
+				item.animations.add('rotation');
+				item.play('rotation', 7, true);
+				item.scale.set(0.7);
+				if(order) item.tint = 0xFFE400;
+				item.tween = this.add.tween(item.scale)
+					.to({x:0.9, y: 0.9}, 300)
+					.to({x: 0.7, y: 0.7}, 400)
+					.loop()
+					.start();
+			} else {
+				let id;
+				if(rect.properties.type == 'health') id = 1;
+				else if(rect.properties.type == 'cartridge') id = 3;
+				item = this.add.sprite(rect.x+rect.width/2, rect.y+rect.height/2, 'items', id);
+				item.tween = this.add.tween(item.scale)
+					.to({x:1.1, y: 1.1}, 300)
+					.to({x: 0.8, y: 0.8}, 400)
+					.to({x: 1, y: 1}, 400)
+					.loop()
+					.start();
+			}
 			item.type = rect.properties.type;
 			item.anchor.set(0.5);
-			item.tween = this.add.tween(item.scale)
-				.to({x:1.1, y: 1.1}, 300)
-				.to({x: 0.8, y: 0.8}, 400)
-				.to({x: 1, y: 1}, 400)
-				.loop()
-				.start();
-
 			item.smoothed = false;
 			this.items.add(item);
-		});		
+		});
 	}
 	_createPatruleFlags() {
 		this.patruleFlags = [];

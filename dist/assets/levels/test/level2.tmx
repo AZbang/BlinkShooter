@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="28">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="32">
  <tileset firstgid="1" name="tilemap" tilewidth="16" tileheight="16" tilecount="324">
   <image source="../tilemap.png" trans="aaff7f" width="288" height="288"/>
   <tile id="0">
@@ -1477,6 +1477,27 @@
    </properties>
   </object>
   <object id="19" x="415.455" y="398.909" width="16.3636" height="16.3636">
+   <properties>
+    <property name="order" value="1"/>
+    <property name="type" value="coins"/>
+   </properties>
+  </object>
+  <object id="28" x="537" y="527" width="10.5" height="10.5">
+   <properties>
+    <property name="type" value="coins"/>
+   </properties>
+  </object>
+  <object id="29" x="538.5" y="504" width="8" height="8.5">
+   <properties>
+    <property name="type" value="coins"/>
+   </properties>
+  </object>
+  <object id="30" x="540" y="483.5" width="6" height="5.5">
+   <properties>
+    <property name="type" value="coins"/>
+   </properties>
+  </object>
+  <object id="31" x="541" y="461.5" width="5.5" height="5.5">
    <properties>
     <property name="type" value="coins"/>
    </properties>

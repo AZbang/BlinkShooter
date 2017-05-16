@@ -12,6 +12,18 @@ class Player extends Entity {
 		this.cursors = this.level.input.keyboard.createCursorKeys();
 		this.jumpButton = this.level.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		this.fireButton = this.level.input.keyboard.addKey(Phaser.Keyboard.Z);
+
+		this.buttonFire = this.level.add.sprite(435, 210, 'buttonFire');
+		this.buttonFire.anchor.set(0.5);
+		this.buttonFire.scale.set(2.5);
+		this.buttonFire.smoothed = false;
+		this.buttonFire.fixedToCamera = true;
+
+		this.buttonJump = this.level.add.sprite(375, 230, 'buttonJump');
+		this.buttonJump.anchor.set(0.5);
+		this.buttonJump.scale.set(2);
+		this.buttonJump.smoothed = false;
+		this.buttonJump.fixedToCamera = true;
 	}
 
 	update() {
@@ -23,10 +35,10 @@ class Player extends Entity {
 			else if(item.type == 'coins') this.interface.setScores(this.interface.scores+100);
 			else if(item.type == 'cartridge') this.isCatridgeUse = true;
 
-			item.tween.stop();
+			item.tween && item.tween.stop();
 			item.isCollide = true;
 			this.level.add.tween(item.scale)
-				.to({x: 0, y: 0}, 1500, Phaser.Easing.Bounce.In)
+				.to({x: 0, y: 0}, 600, Phaser.Easing.Bounce.In)
 				.start()
 				.onComplete.add(() => item.kill);
 		});
@@ -52,23 +64,17 @@ class Player extends Entity {
 			}
 		}
 
-		if(this.cursors.up.isDown)
-			this.level.physics.arcade.accelerationFromRotation(this.sprite.rotation, 300, this.sprite.body.acceleration);
 
-		else this.sprite.body.acceleration.set(0);
+		let rad = Phaser.Math.degToRad(Phaser.Math.radToDeg(this.level.vjoy.rotation));
+		if(this.level.vjoy.isDown) {
+			this.level.physics.arcade.velocityFromRotation(rad, 100, this.sprite.body.velocity);
+			this.sprite.rotation = rad;
+		} else this.sprite.body.velocity.set(0);
 
-		if(this.cursors.left.isDown)
-			this.sprite.body.angularVelocity = -200;
-
-		else if(this.cursors.right.isDown)
-			this.sprite.body.angularVelocity = 200;
-
-		else this.sprite.body.angularVelocity = 0;
-
-		if(this.fireButton.isDown && this.interface.scores)
+		if(this.buttonFire.isDown && this.interface.scores)
 			this.weapon.fire() && this.interface.setScores(this.interface.scores-10);
 
-		if(this.jumpButton.isDown && !this.isJumping) {
+		if(this.buttonJump.isDown && !this.isJumping) {
 			this.fxJump.play('active', 20);
 			this.fxJump.alpha = 1;
 			this.fxJump.x = this.sprite.body.x+5;

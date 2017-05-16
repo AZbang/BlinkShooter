@@ -60,8 +60,8 @@ class Entity {
 		this.sprite.syncBounds = true;
 
 		this.tweenBreathe = this.level.add.tween(this.sprite.scale)
-			.to({x:1.1, y: 1.1}, 600, Phaser.Easing.Quadratic.Out)
-			.to({x: 1, y: 1}, 500, Phaser.Easing.Quadratic.In)
+			.to({x:1.1, y: 1.1}, 600)
+			.to({x: 1, y: 1}, 500)
 			.loop();
 		this.tweenBreathe.start();
 	}

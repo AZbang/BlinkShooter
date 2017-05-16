@@ -1,5 +1,8 @@
+const UI = require('../mixins/UI.js');
+
 class Preload {
 	init() {
+		UI.game = this;
 		this.game.totalLevels = 2;
 	}
 	preload() {
@@ -15,6 +18,12 @@ class Preload {
 		this.load.image('score', '../assets/hud/score.png');
 		this.load.image('window', '../assets/window.png');
 
+		this.load.image('vjoy_body', '../assets/UI/body.png');
+		this.load.image('vjoy_cap', '../assets/UI/button.png');
+
+		this.load.image('buttonJump', '../assets/UI/buttonJump.png');
+		this.load.image('buttonFire', '../assets/UI/buttonFire.png');
+
 		this.load.spritesheet('fx_jump', '../assets/FX/jump.png', 47, 45, 6);
 		this.load.spritesheet('fx_fire', '../assets/FX/fire.png', 32, 33, 6);
 		this.load.spritesheet('fx_explosion', '../assets/FX/explosion.png', 35, 36, 7);
@@ -22,11 +31,14 @@ class Preload {
 		this.load.spritesheet('fx_collide', '../assets/FX/collide.png', 37, 37, 6);
 		this.load.spritesheet('fx_voice', '../assets/hud/voice.png', 20, 20, 7);
 
+		this.load.spritesheet('token', '../assets/token1.png', 20, 20, 9);
+
 		this.load.spritesheet('legs', '../assets/legs.png', 15, 17, 4);
 
 		this.load.bitmapFont('font', '../assets/font.png', '../assets/font.xml');
 		this.load.bitmapFont('font2', '../assets/font2.png', '../assets/font2.xml');
 
+		this.load.atlas('ui', 'assets/atlases/ui.png', 'assets/atlases/ui.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		this.load.atlas('heads', 'assets/atlases/heads.png', 'assets/atlases/heads.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		this.load.atlas('bodies', 'assets/atlases/bodies.png', 'assets/atlases/bodies.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		this.load.atlas('attachToBody', 'assets/atlases/attachToBody.png', 'assets/atlases/attachToBody.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);

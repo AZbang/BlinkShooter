@@ -66,12 +66,13 @@ class Weapon {
 		}
 	}
 	update() {
-		this.level.physics.arcade.collide(this.weapon.bullets, this.level.layerMap, (bullet) => {
+		this.level.physics.arcade.collide(this.weapon.bullets, this.level.firstLayerMap, (bullet, tile) => {
 			this.fxCollide.x = bullet.x;
 			this.fxCollide.y = bullet.y;
 			this.fxCollide.alpha = 1;
 			this.fxCollide.play('active', 100);
 			this.level.add.tween(this.fxCollide).to({alpha: 0}, 300).start();
+			tile.tint = 0xFCFF00;
 
 			bullet.kill();
 		});
