@@ -4,8 +4,12 @@ const concat = require('gulp-concat');
 const connect = require('gulp-connect');
 const plumber = require('gulp-plumber');
 const notify = require("gulp-notify");
-const sourcemaps = require('gulp-sourcemaps');
+const babel = require('gulp-babel');
+const zip = require('gulp-zip');
+const uglify = require('gulp-uglify');
+const gulpIf = require('gulp-if');
 
+var isDev = process.env.DEV !== 'production';
 var errorMessage = () => {
 	return plumber({errorHandler: notify.onError((err) => {
 		return {
@@ -18,13 +22,21 @@ var errorMessage = () => {
 gulp.task('js', () => {
 	return gulp.src('./js/index.js', {read: false})
 		.pipe(errorMessage())
-		.pipe(sourcemaps.init())
 		.pipe(browserify({
-			transform: ['babelify']
+			debug: isDev
 		}))
-		.pipe(sourcemaps.write())
+		.pipe(gulpIf(!isDev, babel({
+			presets: ['es2015']
+		})))
+		.pipe(gulpIf(!isDev, uglify()))
 		.pipe(gulp.dest('./dist'))
 		.pipe(connect.reload());
+});
+
+gulp.task('zip', function() {
+	return gulp.src('./dist')
+		.pipe(zip('blink_shooter.zip'))
+		.pipe(gulp.dest('./zip'))
 });
 
 // server

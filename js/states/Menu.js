@@ -22,7 +22,7 @@ class Menu {
 			this.state.start('Settings');
 		});
 
-		this.info = UI.addText(10, 220, 'font2', 'Powered by azbang @v0.1', 14);
+		this.info = UI.addText(10, 5, 'font2', 'Powered by azbang @v0.1', 14);
 		this.info.anchor.set(0);
 	}
 	update() {

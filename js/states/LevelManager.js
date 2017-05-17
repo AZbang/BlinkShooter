@@ -27,7 +27,7 @@ class LevelManager {
 
 		this.btnClose = UI.addIconButton(60, 45, 'ui', 0, () => this.state.start('Menu'));
 
-		this.info = UI.addText(10, 220, 'font2', 'Powered by azbang @v0.1', 14);
+		this.info = UI.addText(10, 5, 'font2', 'Powered by azbang @v0.1', 14);
 		this.info.anchor.set(0);
 	}
 

@@ -12,7 +12,7 @@ class Settings {
 		this.param1 = UI.addText(this.world.centerX, 130, 'font', 'MUSIC ON', 30);
 		this.param2 = UI.addText(this.world.centerX, 170, 'font', 'SOUNDS ON', 30);
 
-		this.info = UI.addText(10, 220, 'font2', 'Powered by azbang @v0.1', 14);
+		this.info = UI.addText(10, 5, 'font2', 'Powered by azbang @v0.1', 14);
 		this.info.anchor.set(0);
 	}
 	update() {

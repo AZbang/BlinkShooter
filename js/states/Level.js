@@ -21,9 +21,6 @@ class Level {
 		this.secondLayerMap.resizeWorld();
 		this.secondLayerMap.smoothed = false;
 
-		this.info = UI.addText(10, 220, 'font2', 'Powered by azbang @v0.1', 14);
-		this.info.anchor.set(0);
-		this.info.fixedToCamera = true;
 
 		// PathFinder
 		let arr = [];
@@ -135,8 +132,7 @@ class Level {
 	}
 
 	update() {
-		this.bg.tilePosition.x += 1;
-		this.bg.tilePosition.y += 1;
+		this.bg.tilePosition.y += 10;
 
 		this.player._update();
 		for(let i = 0; i < this.enemies.children.length; i++) {

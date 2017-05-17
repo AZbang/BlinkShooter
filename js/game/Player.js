@@ -13,17 +13,33 @@ class Player extends Entity {
 		this.jumpButton = this.level.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		this.fireButton = this.level.input.keyboard.addKey(Phaser.Keyboard.Z);
 
-		this.buttonFire = this.level.add.sprite(435, 210, 'buttonFire');
+		this.buttonFire = this.level.add.button(435, 210, 'buttonFire');
 		this.buttonFire.anchor.set(0.5);
 		this.buttonFire.scale.set(2.5);
 		this.buttonFire.smoothed = false;
 		this.buttonFire.fixedToCamera = true;
 
-		this.buttonJump = this.level.add.sprite(375, 230, 'buttonJump');
+		this.buttonFire.onInputDown.add(() => {
+			if(this.interface.scores)
+				this.weapon.fire() && this.interface.setScores(this.interface.scores-10);
+		});
+
+		this.buttonJump = this.level.add.button(375, 230, 'buttonJump');
 		this.buttonJump.anchor.set(0.5);
 		this.buttonJump.scale.set(2);
 		this.buttonJump.smoothed = false;
 		this.buttonJump.fixedToCamera = true;
+
+		this.buttonJump.onInputDown.add(() => {
+			if(!this.isJumping) {
+				this.fxJump.play('active', 20);
+				this.fxJump.alpha = 1;
+				this.fxJump.x = this.sprite.body.x+5;
+				this.fxJump.y = this.sprite.body.y+5;
+				this.level.add.tween(this.fxJump).to({alpha: 0}, 600).start();
+				this.jump(this.jumping);
+			}
+		});
 	}
 
 	update() {
@@ -64,24 +80,11 @@ class Player extends Entity {
 			}
 		}
 
-
 		let rad = Phaser.Math.degToRad(Phaser.Math.radToDeg(this.level.vjoy.rotation));
 		if(this.level.vjoy.isDown) {
 			this.level.physics.arcade.velocityFromRotation(rad, 100, this.sprite.body.velocity);
 			this.sprite.rotation = rad;
 		} else this.sprite.body.velocity.set(0);
-
-		if(this.buttonFire.isDown && this.interface.scores)
-			this.weapon.fire() && this.interface.setScores(this.interface.scores-10);
-
-		if(this.buttonJump.isDown && !this.isJumping) {
-			this.fxJump.play('active', 20);
-			this.fxJump.alpha = 1;
-			this.fxJump.x = this.sprite.body.x+5;
-			this.fxJump.y = this.sprite.body.y+5;
-			this.level.add.tween(this.fxJump).to({alpha: 0}, 600).start();
-			this.jump(this.jumping);
-		}
 	}
 
 	onWounded() {
