@@ -20,7 +20,7 @@ var errorMessage = () => {
 }
 
 gulp.task('js', () => {
-	return gulp.src('./js/index.js', {read: false})
+	return gulp.src('./dev/index.js', {read: false})
 		.pipe(errorMessage())
 		.pipe(browserify({
 			debug: isDev
@@ -29,29 +29,24 @@ gulp.task('js', () => {
 			presets: ['es2015']
 		})))
 		.pipe(gulpIf(!isDev, uglify()))
-		.pipe(gulp.dest('./dist'))
+		.pipe(gulp.dest('./www'))
 		.pipe(connect.reload());
 });
 
-gulp.task('zip', function() {
-	return gulp.src('./dist')
-		.pipe(zip('blink_shooter.zip'))
-		.pipe(gulp.dest('./zip'))
-});
 
 // server
 gulp.task('server', () => {
 	return connect.server({
 		port: 1338,
 		livereload: true,
-		root: './dist'
+		root: './www'
 	});
 });
 
 
 // Watch files
 gulp.task('watch', () => {
-	gulp.watch('./js/**/*.*', ['js']);
+	gulp.watch('./dev/**/*.*', ['js']);
 });
 
 // Tasks
